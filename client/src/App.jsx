@@ -1,6 +1,10 @@
-import { io } from "socket.io-client"
 import './App.css'
+import { io } from "socket.io-client"
 import { useEffect } from "react"
+import Header from './components/Header/Header'
+import Main from "./components/Main/Main"
+import MessageInput from './components/MessageInput/MessageInput'
+import StartPage from './components/StartPage/StartPage'
 
 function App() {
 
@@ -18,7 +22,10 @@ function App() {
 
   return (
     <div>
-      <h1>Welcome to chat</h1>
+      <Header />
+      <Main />
+      <MessageInput />
+      <StartPage />
     </div>
   )
 }

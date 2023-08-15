@@ -1,12 +1,25 @@
-import { useState } from 'react'
+import { io } from "socket.io-client"
 import './App.css'
+import { useEffect } from "react"
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const socket = io("http://localhost:3000/", {/*  autoConnect: false */ })
+
+  const initChat = () => {
+    socket.connect()
+  }
+
+  useEffect(() => {
+    socket.on("test", (data) => {
+      console.log(data);
+    })
+  }, [])
 
   return (
-  
-<div> hello world</div>
+    <div>
+      <h1>Welcome to chat</h1>
+    </div>
   )
 }
 

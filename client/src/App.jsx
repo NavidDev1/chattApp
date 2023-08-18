@@ -1,10 +1,12 @@
 import './App.css'
 import { io } from "socket.io-client"
 import { useEffect } from "react"
+import {BrowserRouter, Router, Routes, Route} from "react-router-dom"
 import Header from './components/Header/Header'
-import Main from "./components/Main/Main"
-import MessageInput from './components/MessageInput/MessageInput'
-import StartPage from './components/StartPage/StartPage'
+import HomePage from "./pages/HomePage"
+import Lobby from "./pages/Lobby"
+import CreateRoom from "./pages/CreateRoom"
+import AllRooms from "./pages/AllRooms"
 
 function App() {
 
@@ -22,12 +24,22 @@ function App() {
 
   return (
     <div>
+      <BrowserRouter>
       <Header />
-      <Main />
-      <MessageInput />
-      <StartPage />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/lobby" element={<Lobby />} />
+          <Route path="/lobby/:id" element={<Lobby />} />
+          <Route path="/create_room" element={<CreateRoom />} />
+          <Route path="/all_rooms" element={<AllRooms />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }
+
+{/* <Main />
+<MessageInput />
+<StartPage /> */}
 
 export default App

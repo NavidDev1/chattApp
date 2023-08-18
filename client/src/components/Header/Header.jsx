@@ -1,12 +1,16 @@
-import LeaveRoomBtn from "../LeaveRoomBtn/LeaveRoomBtn"
-import StartRoomBtn from "../StartRoomBtn/StartRoomBtn"
+import { Link } from "react-router-dom"
+import "./Header.css"
 
 function Header() {
     return (
-      <div>
-        <h1>Header</h1>
-        <StartRoomBtn />
-        <LeaveRoomBtn />
+      <div className="header">
+        <h1>Chatt</h1>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/lobby">Lobby</Link></li>
+          <li><Link to="/create_room">Create Room</Link></li>
+          <li><Link to="/all_rooms">All Rooms</Link></li>
+        </ul>
       </div>
     )
   }

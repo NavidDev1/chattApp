@@ -13,13 +13,13 @@ const StartPage = () => {
   console.log(username);
 
   return (
-    <div>
-      <h1>Welcome</h1>
+    <div className="bg-blue-500 flex flex-col items-center gap-4 w-96 m-auto">
+      <h1 className="text-5xl">Welcome</h1>
       <div>
         <p>Write your name please...</p>
         <input type="text" placeholder="Name" onChange={(e) => setUsername(e.target.value)}/>
       </div>
-      <button onClick={handleClick}>Connect</button>
+      <button onClick={handleClick} className="bg-slate-300 p-2 border">Connect</button>
     </div>
   )
 }

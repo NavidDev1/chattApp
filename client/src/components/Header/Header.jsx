@@ -3,7 +3,7 @@ import "./Header.css"
 import { useChatContext } from "../../context/ChatContext"
 
 function Header() {
-  const { username } = useChatContext
+  const { username } = useChatContext()
 
     return (
       <div className="header">

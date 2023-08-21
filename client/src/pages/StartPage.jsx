@@ -2,15 +2,16 @@ import { useChatContext } from "../context/ChatContext"
 import { useNavigate } from "react-router-dom"
 
 const StartPage = () => {
-  const { username, setUsername } = useChatContext()
+  const { username, setUsername, connectToChat } = useChatContext()
   const navigate = useNavigate()
 
   const handleClick = () => {
+    connectToChat()
     navigate("/lobby")
   }
 
   console.log(username);
-  
+
   return (
     <div>
       <h1>Welcome</h1>

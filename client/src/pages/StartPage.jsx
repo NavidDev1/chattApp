@@ -6,20 +6,22 @@ const StartPage = () => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    connectToChat()
-    navigate("/lobby")
+    if (username) {
+      connectToChat()
+      navigate("/lobby")
+    } else {
+      console.log("Enter your name please!");
+    }
   }
 
-  console.log(username);
-
   return (
-    <div className="bg-blue-500 flex flex-col items-center gap-4 w-96 m-auto">
-      <h1 className="text-5xl">Welcome</h1>
+    <div className="bg-blue-500 flex flex-col justify-center items-center gap-4 w-3/5 m-auto py-10 h-screen">
+      <h1 className="text-7xl">Welcome</h1>
       <div>
         <p>Write your name please...</p>
         <input type="text" placeholder="Name" onChange={(e) => setUsername(e.target.value)}/>
       </div>
-      <button onClick={handleClick} className="bg-slate-300 p-2 border">Connect</button>
+      {<button onClick={handleClick} className="bg-slate-300 p-2 border">Connect</button>}
     </div>
   )
 }

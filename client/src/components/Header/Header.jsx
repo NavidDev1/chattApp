@@ -8,7 +8,7 @@ function Header() {
     return (
       <div className="header">
         <h1>Chatt</h1>
-        <h1>Welcome {username}</h1>
+        <h1 className="text-3xl font-bold underline">Welcome {username}</h1>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/lobby">Lobby</Link></li>

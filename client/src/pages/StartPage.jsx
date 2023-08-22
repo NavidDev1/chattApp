@@ -15,13 +15,16 @@ const StartPage = () => {
   }
 
   return (
-    <div className="bg-blue-500 flex flex-col justify-center items-center gap-4 w-3/5 m-auto py-10 h-screen">
-      <h1 className="text-7xl">Welcome</h1>
+    <div className="h-screen flex">
+      <div className="bg-white shadow-2xl rounded-md flex flex-col justify-center items-center space-y-4 w-3/5 m-auto p-10">
+      <h1 className="text-3xl">Hello 👋</h1>
       <div>
-        <p>Write your name please...</p>
-        <input type="text" placeholder="Name" onChange={(e) => setUsername(e.target.value)}/>
+        <p className="text-center mb-2">Choose a name</p>
+        <input className="bg-gray-200 w-full p-2 text-center text-lg" type="text" placeholder="Name" onChange={(e) => setUsername(e.target.value)}/>
       </div>
-      {<button onClick={handleClick} className="bg-slate-300 p-2 border">Connect</button>}
+      {<button onClick={handleClick} className="bg-blue-400 text-white
+     py-2 px-4 font-bold">Connect</button>}
+    </div>
     </div>
   )
 }

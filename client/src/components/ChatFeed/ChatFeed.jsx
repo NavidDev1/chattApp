@@ -4,7 +4,11 @@ import MessageInput from "../MessageInput/MessageInput";
 
 // we use the chatContext to bring in the messages and username
 function ChatFeed() {
-const {messages, username} = useChatContext();
+const {messages, username, currentRoom} = useChatContext();
+
+const filteredMessages = messages.filter(
+  (message) => message.room === currentRoom
+);
 
 console.log(messages)
 
@@ -15,7 +19,7 @@ console.log(messages)
       <div className="p-4 bg-gray-100">
       <h2 className="text-2xl mb-4">Welcome to the chat {username}!</h2>
       <div className="space-y-2">
-        {messages.map((message, index) => (
+        {filteredMessages.map((message, index) => (
           <div key={index} className="flex items-start space-x-2">
             <div className="bg-white p-3 rounded-md shadow-md">
               <strong>{message.username}</strong>

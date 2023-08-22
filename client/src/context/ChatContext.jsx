@@ -16,6 +16,7 @@ const ChatProvider = ({ children }) => {
     const [roomsList, setRoomsList] = useState([])
     const [currentRoom, setCurrentRoom] = useState("Lobby")
     const [messages, setMessages] = useState([]);
+    
 
     const connectToChat = () => {
         if (username) {
@@ -39,6 +40,7 @@ const ChatProvider = ({ children }) => {
         const messageData ={
           username: username,
           content: message,
+          room: currentRoom
         };
         socket.emit("message", messageData);
       }

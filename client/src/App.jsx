@@ -1,10 +1,6 @@
 import './App.css'
 import {BrowserRouter, Router, Routes, Route} from "react-router-dom"
-import Header from './components/Header/Header'
 import StartPage from "./pages/StartPage"
-import Lobby from "./pages/Lobby"
-import CreateRoom from "./pages/CreateRoom"
-import AllRooms from "./pages/AllRooms"
 import Main from './components/Main/Main'
 
 function App() {

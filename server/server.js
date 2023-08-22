@@ -31,6 +31,16 @@ io.on("connection", (socket) => {
         console.log(io.sockets.adapter.rooms);
     })
 
+    socket.on("create_room", (room) => {
+        rooms.add(room)
+        io.emit("list_of_rooms", Array.from(rooms))
+        console.log("User with id:", socket.id, "created room:", room);
+    })
+
+    socket.on("leave_room", (room) => {
+        socket.leave(room)
+        console.log("User with id:", socket.id, "left room:", room);
+    })
 })
 
 server.listen(3000, () => console.log("Server is up and running"))

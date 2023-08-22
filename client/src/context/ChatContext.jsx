@@ -21,8 +21,15 @@ const ChatProvider = ({ children }) => {
     }
 
     const joinRoom = (room) => {
+        if(room !== currentRoom) {
+            socket.emit("leave_room", currentRoom)
+        }
         socket.emit("join_room", room)
         setCurrentRoom(room)
+    }
+
+    const createRoom = (room) => {
+        socket.emit("create_room", room)
     }
 
     useEffect(() => {
@@ -30,10 +37,10 @@ const ChatProvider = ({ children }) => {
             setRoomsList(rooms)
         })
     }, []) 
-    
+
     console.log("Roomlist:", roomsList);
 
-    return (<ChatContext.Provider value={{ username, setUsername, roomsList, connectToChat, currentRoom, setCurrentRoom }}>
+    return (<ChatContext.Provider value={{ username, setUsername, roomsList, connectToChat, currentRoom, setCurrentRoom, joinRoom, createRoom }}>
         {children}
     </ChatContext.Provider>)
 }

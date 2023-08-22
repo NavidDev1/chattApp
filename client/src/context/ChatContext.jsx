@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { io } from "socket.io-client"
 
 const ChatContext = createContext()
@@ -25,7 +25,15 @@ const ChatProvider = ({ children }) => {
         setCurrentRoom(room)
     }
 
-    return (<ChatContext.Provider value={{ username, setUsername, connectToChat, currentRoom, setCurrentRoom }}>
+    useEffect(() => {
+        socket.on("list_of_rooms", (rooms) => {
+            setRoomsList(rooms)
+        })
+    }, []) 
+    
+    console.log("Roomlist:", roomsList);
+
+    return (<ChatContext.Provider value={{ username, setUsername, roomsList, connectToChat, currentRoom, setCurrentRoom }}>
         {children}
     </ChatContext.Provider>)
 }

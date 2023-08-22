@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { io } from "socket.io-client"
 
 const socket = io("http://localhost:3000/", { autoConnect: false })
@@ -14,12 +15,13 @@ const ChatProvider = ({ children }) => {
   //setting the diffrent state.
     const [username, setUsername] = useState("")
     const [roomsList, setRoomsList] = useState([])
-    const [currentRoom, setCurrentRoom] = useState("")
+    const [currentRoom, setCurrentRoom] = useState("Lobby")
     const [messages, setMessages] = useState([]);
 
     const connectToChat = () => {
         if (username) {
             socket.connect()
+            joinRoom(currentRoom)
         } else {
             console.log("No username");
         }
@@ -49,8 +51,35 @@ const ChatProvider = ({ children }) => {
       sendMessage,
       username,
       setUsername,
-      connectToChat
+      connectToChat,
+      createRoom,
+      joinRoom,
+      currentRoom,
+      setCurrentRoom,
+      roomsList,
+      setRoomsList,
+      
     };
+
+    const joinRoom = (room) => {
+        if(room !== currentRoom) {
+            socket.emit("leave_room", currentRoom)
+        }
+        socket.emit("join_room", room)
+        setCurrentRoom(room)
+    }
+
+    const createRoom = (room) => {
+        socket.emit("create_room", room)
+    }
+
+    useEffect(() => {
+        socket.on("list_of_rooms", (rooms) => {
+            setRoomsList(rooms)
+        })
+    }, []) 
+
+    console.log("Roomlist:", roomsList);
 
 
     return (<ChatContext.Provider value={chatContextValue}>

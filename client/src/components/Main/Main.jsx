@@ -6,9 +6,10 @@ function Main() {
     return (
       <div>
         <Header />
-        <h1>Main</h1>
-        <Sidebar />
-        <ChatFeed />
+        <div className="bg-slate-300 flex flex-row gap-4 h-screen justify-center">
+          <Sidebar />
+          <ChatFeed />
+        </div>
       </div>
     )
   }

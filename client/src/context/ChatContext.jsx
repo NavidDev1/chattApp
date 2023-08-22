@@ -1,5 +1,4 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { createContext, useState, useContext, useEffect } from "react";
 import { io } from "socket.io-client"
 
 const socket = io("http://localhost:3000/", { autoConnect: false })
@@ -45,6 +44,27 @@ const ChatProvider = ({ children }) => {
       }
     };
   
+    
+    const joinRoom = (room) => {
+        if(room !== currentRoom) {
+            socket.emit("leave_room", currentRoom)
+        }
+        socket.emit("join_room", room)
+        setCurrentRoom(room)
+    }
+    
+    const createRoom = (room) => {
+        socket.emit("create_room", room)
+    }
+    
+    useEffect(() => {
+        socket.on("list_of_rooms", (rooms) => {
+            setRoomsList(rooms)
+        })
+    }, []) 
+    
+    console.log("Roomlist:", roomsList);
+    
     // The value to provide through the context
     const chatContextValue = {
       messages,
@@ -57,31 +77,9 @@ const ChatProvider = ({ children }) => {
       currentRoom,
       setCurrentRoom,
       roomsList,
-      setRoomsList,
-      
+      setRoomsList
     };
-
-    const joinRoom = (room) => {
-        if(room !== currentRoom) {
-            socket.emit("leave_room", currentRoom)
-        }
-        socket.emit("join_room", room)
-        setCurrentRoom(room)
-    }
-
-    const createRoom = (room) => {
-        socket.emit("create_room", room)
-    }
-
-    useEffect(() => {
-        socket.on("list_of_rooms", (rooms) => {
-            setRoomsList(rooms)
-        })
-    }, []) 
-
-    console.log("Roomlist:", roomsList);
-
-
+    
     return (<ChatContext.Provider value={chatContextValue}>
         {children}
     </ChatContext.Provider>)

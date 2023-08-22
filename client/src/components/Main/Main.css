@@ -1,0 +1,50 @@
+.main {
+    width: 80%;
+    max-width: 600px;
+
+
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* This centers the content div horizontally */
+    width: 80%;
+    /* Width of the container */
+    max-width: 600px;
+    /* You can adjust this value based on your preference */
+    margin: 0 auto;
+    /* This centers the container in the middle of the page */
+    height: 70vh;
+    /* This sets the container height to 70% of the viewport height */
+    overflow: auto;
+    /* This will allow the content inside the container to scroll if it exceeds the container's height */
+}
+
+.content {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    height: calc(100% - 60px);
+    /* Assuming header and "Main" title takes up 60px. Adjust as needed. */
+    overflow: hidden;
+    /* This ensures that the content doesn't overflow outside of its container */
+}
+
+.sidebar {
+    width: 25%;
+    /* Sidebar takes up 1/4th of the content width */
+    max-width: 150px;
+    height: 50vh;
+    background-color: aqua;
+}
+
+.chatfeed {
+    width: 75%;
+    max-width: 350px;
+    /* ChatFeed takes up the rest of the space in content */
+    height: 50vh;
+    background-color: rgb(125, 135, 135);
+}

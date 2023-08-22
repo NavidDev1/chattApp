@@ -77,9 +77,9 @@ const ChatProvider = ({ children }) => {
       currentRoom,
       setCurrentRoom,
       roomsList,
-      setRoomsList
+      setRoomsList,
     };
-    
+
     return (<ChatContext.Provider value={chatContextValue}>
         {children}
     </ChatContext.Provider>)

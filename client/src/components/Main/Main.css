@@ -24,9 +24,8 @@
 }
 
 .content {
-    display: flex;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     height: calc(100% - 60px);
     /* Assuming header and "Main" title takes up 60px. Adjust as needed. */
     overflow: hidden;
@@ -38,13 +37,11 @@
     /* Sidebar takes up 1/4th of the content width */
     max-width: 150px;
     height: 50vh;
-    background-color: aqua;
+    background-color: #f1f1f1;
+    border: none;
 }
 
 .chatfeed {
     width: 75%;
-    max-width: 350px;
-    /* ChatFeed takes up the rest of the space in content */
     height: 50vh;
-    background-color: rgb(125, 135, 135);
 }

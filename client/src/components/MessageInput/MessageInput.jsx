@@ -12,13 +12,14 @@ function MessageInput() {
     setNewMessage("")
   }
     return (
-      <div>
-        <input type="text"
+      <div className="flex border-2 border-solid sticky bottom-0 right-0 left-0 z-100 mt-2">
+        <input
+        className="p-2 text-sm flex-1" 
+        type="text"
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)} 
         />
-        <button onClick={handleSendMessage}> Send </button>
-        <SendMessageBtn />
+        <button className="bg-blue-400 text-white p-2 text-sm" onClick={handleSendMessage}>Send</button>
       </div>
     )
   }

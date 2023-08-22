@@ -40,6 +40,15 @@ io.on("connection", (socket) => {
     socket.on("leave_room", (room) => {
         socket.leave(room)
         console.log("User with id:", socket.id, "left room:", room);
+
+        if (room !== "Lobby") {
+            const roomSize = io.sockets.adapter.rooms.get(room)?.size || 0;
+            if (roomSize === 0) {
+                rooms.delete(room);
+                io.emit("list_of_rooms", Array.from(rooms));
+                console.log("Room removed:", room);
+            }
+        }
     })
 })
 

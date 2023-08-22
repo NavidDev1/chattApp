@@ -1,15 +1,15 @@
-const express = require("express")
-const http = require("http")
-const { Server } = require("socket.io")
-const cors = require("cors")
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const cors = require("cors");
 
-const app = express()
-const server = http.createServer(app)
+const app = express();
+const server = http.createServer(app);
 const io = new Server(server, {
-    cors: {
-        origin: "*"
-    }
-})
+  cors: {
+    origin: "*",
+  },
+});
 
 app.use(cors())
 
@@ -21,7 +21,20 @@ rooms.add("Lobby")
 console.log(rooms);
 
 io.on("connection", (socket) => {
-    console.log("New client connected:", socket.id)
+  console.log("New client connected:", socket.id);
+
+  // Listen for messages from clients
+  socket.on("message", (messageData) => {
+    console.log("Received message:", messageData);
+
+    // Broadcast the message to all connected clients, including the sender
+    io.emit("message", messageData);
+  });
+
+  // Handle client disconnect
+  socket.on("disconnect", () => {
+    console.log("Client disconnected:", socket.id);
+  });
 
     socket.on("join_room", (room) => {
         socket.join(room)
@@ -50,6 +63,6 @@ io.on("connection", (socket) => {
             }
         }
     })
-})
+});
 
-server.listen(3000, () => console.log("Server is up and running"))
+server.listen(3000, () => console.log("Server is up and running"));

@@ -11,7 +11,7 @@ function Sidebar() {
             <li className={room === currentRoom ? "text-gray-900 font-bold text-sm text-center" : "cursor-pointer"} key={room} onClick={() => joinRoom(room)}>🏠 {room}</li>
           ))}
         </ul>
-        <Link to="/" className="bg-red-500 text-white text-sm text-center absolute bottom-0 left-0 right-0 p-2">Logga ut</Link>
+        <Link to="/"  className="bg-red-500 text-white text-sm text-center absolute bottom-0 left-0 right-0 p-2">Logga ut</Link>
         {/* <Room /> */}
       </div>
     )

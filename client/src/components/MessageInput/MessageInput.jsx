@@ -26,7 +26,15 @@ function MessageInput() {
   }
 
     return (
-      <div className="flex border-2 border-solid sticky bottom-0 right-0 left-0 z-100 mt-2">
+      <div className="flex flex-col border-2 border-solid sticky bottom-0 right-0 left-0 z-100 mt-2">
+        <div>
+        {uniqueTypingUsers.length > 0 && (
+          <div className="text-gray-400 text-sm">
+            {uniqueTypingUsers.join(", ")} {uniqueTypingUsers.length === 1 ? "is" : "are"} typing...
+          </div>
+        )}
+      </div>
+        <div>
         <input
         className="p-2 text-sm flex-1" 
         type="text"
@@ -34,14 +42,8 @@ function MessageInput() {
         onChange={handleInputChange} 
         />
         <button onClick={handleSendMessage} className="bg-blue-400 text-white p-2 text-sm"> Send </button>
-        <div>
-        {uniqueTypingUsers.length > 0 && (
-          <div>
-            {uniqueTypingUsers.join(", ")} {uniqueTypingUsers.length === 1 ? "is" : "are"} typing...
-          </div>
-        )}
-      </div>
         {/* <SendMessageBtn /> */}
+        </div>
       </div>
     )
   }

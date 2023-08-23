@@ -18,17 +18,33 @@ const rooms = new Set()
 // Default room lobby
 rooms.add("Lobby")
 
+const roomMessages = {}
+
 console.log(rooms);
+console.log(roomMessages);
 
 io.on("connection", (socket) => {
   console.log("New client connected:", socket.id);
+
+  socket.on("typing_start", (data) => {
+    socket.to(data.room).emit("user_typing", data);
+});
+
+socket.on("typing_end", (data) => {
+    socket.to(data.room).emit("user_stopped_typing", data);
+});
 
   // Listen for messages from clients
   socket.on("message", (messageData) => {
     console.log("Received message:", messageData);
 
+    if (!roomMessages[messageData.room]) {
+      roomMessages[messageData.room] = [];
+    }
+
+    roomMessages[messageData.room].push(messageData)
     // Broadcast the message to all connected clients, including the sender
-    io.emit("message", messageData);
+    io.to(messageData.room).emit("message", messageData);
   });
 
   // Handle client disconnect
@@ -39,6 +55,11 @@ io.on("connection", (socket) => {
     socket.on("join_room", (room) => {
         socket.join(room)
         rooms.add(room)
+
+        if(!roomMessages[room]) {
+            roomMessages[room] = []
+        }
+
         console.log("User with id:", socket.id, "joined room:", room);
         io.emit("list_of_rooms", Array.from(rooms))
         console.log(io.sockets.adapter.rooms);

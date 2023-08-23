@@ -16,6 +16,9 @@ const ChatProvider = ({ children }) => {
     const [roomsList, setRoomsList] = useState([])
     const [currentRoom, setCurrentRoom] = useState("Lobby")
     const [messages, setMessages] = useState([]);
+    const [typingUsers, setTypingUsers] = useState({});
+    console.log(typingUsers);
+    
 
     const connectToChat = () => {
         if (username) {
@@ -27,9 +30,25 @@ const ChatProvider = ({ children }) => {
     }
 
     useEffect(() => {
-      // Listen for "message" events from the socket and update the messages state
       socket.on("message", (message) => {
         setMessages((prevMessages) => [...prevMessages, message]);
+      });
+      // Listen for "message" events from the socket and update the messages state
+    }, [])
+    
+    useEffect(() => {
+      socket.on("user_typing", (data) => {
+        setTypingUsers((prevTypingUsers) => ({
+          ...prevTypingUsers,
+          [data.room]: [...(prevTypingUsers[data.room] || []), data.username],
+        }));
+      });
+    
+      socket.on("user_stopped_typing", (data) => {
+        setTypingUsers((prevTypingUsers) => ({
+          ...prevTypingUsers,
+          [data.room]: prevTypingUsers[data.room]?.filter((username) => username !== data.username),
+        }));
       });
     }, []);
   
@@ -39,6 +58,7 @@ const ChatProvider = ({ children }) => {
         const messageData ={
           username: username,
           content: message,
+          room: currentRoom
         };
         socket.emit("message", messageData);
       }
@@ -78,6 +98,8 @@ const ChatProvider = ({ children }) => {
       setCurrentRoom,
       roomsList,
       setRoomsList,
+      typingUsers,
+      socket
     };
 
     return (<ChatContext.Provider value={chatContextValue}>

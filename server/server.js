@@ -21,13 +21,26 @@ rooms.add("Lobby")
 const roomMessages = {}
 
 console.log(rooms);
+console.log(roomMessages);
 
 io.on("connection", (socket) => {
   console.log("New client connected:", socket.id);
 
+  socket.on("typing_start", (data) => {
+    socket.to(data.room).emit("user_typing", data);
+});
+
+socket.on("typing_end", (data) => {
+    socket.to(data.room).emit("user_stopped_typing", data);
+});
+
   // Listen for messages from clients
   socket.on("message", (messageData) => {
     console.log("Received message:", messageData);
+
+    if (!roomMessages[messageData.room]) {
+      roomMessages[messageData.room] = [];
+    }
 
     roomMessages[messageData.room].push(messageData)
     // Broadcast the message to all connected clients, including the sender

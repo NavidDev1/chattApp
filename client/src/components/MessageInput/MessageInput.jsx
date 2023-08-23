@@ -5,20 +5,41 @@ import { useState } from "react"
 
 function MessageInput() {
   const [newMessage, setNewMessage] = useState("");
-  const {sendMessage} = useChatContext();
+  const {sendMessage, username, currentRoom, typingUsers, socket} = useChatContext();
+  const uniqueTypingUsers = Array.from(new Set(typingUsers[currentRoom] || []));
+
+  const handleInputChange = (e) => {
+    setNewMessage(e.target.value);
+    if (e.target.value !== "") {
+      socket.emit("typing_start", { room: currentRoom, username });
+    } else {
+      socket.emit("typing_end", { room: currentRoom, username });
+    }
+  };
 
   const handleSendMessage = () => {
-    sendMessage(newMessage);
-    setNewMessage("")
+    if(newMessage !== "") {
+      sendMessage(newMessage);
+      setNewMessage("")
+      socket.emit("typing_end", { room: currentRoom, username });
+    }
   }
+
     return (
       <div>
         <input type="text"
         value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)} 
+        onChange={handleInputChange} 
         />
         <button onClick={handleSendMessage}> Send </button>
-        <SendMessageBtn />
+        <div>
+        {uniqueTypingUsers.length > 0 && (
+          <div>
+            {uniqueTypingUsers.join(", ")} {uniqueTypingUsers.length === 1 ? "is" : "are"} typing...
+          </div>
+        )}
+      </div>
+        {/* <SendMessageBtn /> */}
       </div>
     )
   }

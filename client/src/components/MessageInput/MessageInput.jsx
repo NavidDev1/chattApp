@@ -25,6 +25,7 @@ function MessageInput() {
     }
   };
 
+  // a function that listens to an event and sends the message evrytime it is called wich is when the client presses enter.
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       sendMessage(newMessage)

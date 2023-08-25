@@ -58,7 +58,8 @@ const ChatProvider = ({ children }) => {
         const messageData ={
           username: username,
           content: message,
-          room: currentRoom
+          room: currentRoom,
+          timestamp: new Date().toISOString(),
         };
         socket.emit("message", messageData);
       }

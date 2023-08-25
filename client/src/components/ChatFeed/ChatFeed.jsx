@@ -40,7 +40,14 @@ function ChatFeed() {
             <div className="bg-white p-3 rounded-md shadow-md">
               {message.content}
             </div>
-            <div className="text-gray-500">{message.username}</div>
+            <div className="text-gray-500">
+              {message.username}
+              <span className="ml-2">
+                {new Date(message.timestamp).toLocaleTimeString([], {
+                  timeStyle: "short",
+                })}
+              </span>
+            </div>
           </div>
         ))}
         <div ref={messageContainerRef} />

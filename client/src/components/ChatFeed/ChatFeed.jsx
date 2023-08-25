@@ -51,11 +51,6 @@ function ChatFeed() {
     </div>
 
 
-
-
-
-
-
   );
 }
 

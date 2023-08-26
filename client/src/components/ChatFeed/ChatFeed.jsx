@@ -35,14 +35,14 @@ function ChatFeed() {
         {filteredMessages.map((message, index) => (
           <div
             key={index}
-            className={`flex flex-col text-xs space-x-2 space-y-2 ${username === message.username ? "items-end" : "items-start"}`}
+            className={`flex flex-col text-s space-x-2 space-y-2 ${username === message.username ? "items-end" : "items-start"}`}
           >
-            <div className={`bg-white p-3 rounded-md shadow-md ${username === message.username ? "text-blue-500 text-right" : ""}`}>
+            {username === message.username ?
+              <div className="text-gray-500 mb-1">  ({new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})</div>
+              : <div className="text-gray-500 mb-1">{message.username}({new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})</div>}
+            <div className={`p-3 rounded-md shadow-md ${username === message.username ? "bg-black text-white" : "bg-blue-500 text-white"}`}>
               {message.content}
             </div>
-            {username === message.username ?
-              <div className="text-gray-500">({new Date(message.timestamp).toLocaleTimeString()}): {message.username}</div>
-              : <div className="text-gray-500"> ({new Date(message.timestamp).toLocaleTimeString()}): {message.username}</div>}
           </div>
         ))}
         <div ref={messageContainerRef} />

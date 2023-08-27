@@ -81,33 +81,38 @@ io.on("connection", (socket) => {
     for (let [room, users] of roomMap.entries()) {
       roomsWithUsers[room] = users;
     }
+    console.log("Sending roomsWithUsers: ", roomsWithUsers);
+
     callback(roomsWithUsers);
   });
 
 
 
   socket.on("join_room", (room) => {
-    socket.join(room)
-    rooms.add(room)
     const username = userMap.get(socket.id);
+    if (username) {
+      socket.join(room);
+      rooms.add(room);
 
-    if (roomMap.has(room)) {
-      roomMap.get(room).push(username);
+      if (roomMap.has(room)) {
+        roomMap.get(room).push(username);
+      } else {
+        roomMap.set(room, [username]);
+      }
+
+      io.to(room).emit('users_in_room', roomMap.get(room));
+
+      if (!roomMessages[room]) {
+        roomMessages[room] = []
+      }
+
+      console.log("User with id:", socket.id, "joined room:", room);
+      io.emit("list_of_rooms", Array.from(rooms));
     } else {
-      roomMap.set(room, [username]);
+      console.error(`Username not found for socket ID: ${socket.id}`);
     }
+  });
 
-    io.to(room).emit('users_in_room', roomMap.get(room)); // Send the updated list to the room
-
-
-    if (!roomMessages[room]) {
-      roomMessages[room] = []
-    }
-
-    console.log("User with id:", socket.id, "joined room:", room);
-    io.emit("list_of_rooms", Array.from(rooms))
-    console.log(io.sockets.adapter.rooms);
-  })
 
   socket.on("create_room", (room) => {
     rooms.add(room)
@@ -142,6 +147,7 @@ io.on("connection", (socket) => {
         roomMap.set(room, users);
       }
     }
+    console.log(`User ${username} with id ${socket.id} left room: ${room}`);
 
     if (room !== "Lobby") {
       const roomSize = io.sockets.adapter.rooms.get(room)?.size || 0;

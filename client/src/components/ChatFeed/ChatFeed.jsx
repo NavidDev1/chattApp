@@ -57,7 +57,7 @@ function ChatFeed() {
             ) : (
               <div className="text-gray-500 mb-1">
                 {" "}
-                (
+                {message.username}(
                 {new Date(message.timestamp).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",

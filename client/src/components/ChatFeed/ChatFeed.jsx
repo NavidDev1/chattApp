@@ -3,14 +3,14 @@ import { useChatContext } from "../../context/ChatContext";
 import MessageInput from "../MessageInput/MessageInput";
 
 function ChatFeed() {
-  const { messages, username, currentRoom, setRoomsList } = useChatContext();
+  const { messages, username, currentRoom, setRoomsList, usersInRooms } = useChatContext();
 
   const filteredMessages = messages.filter(
     (message) => message.room === currentRoom
   );
 
   const messageContainerRef = useRef(null);
-
+  const lobbyUsers = usersInRooms['Lobby'];
   //here we make a custom hook to make the dic automatically scroll to bottom of the chatfeed
   useEffect(() => {
     const scrollToBottom = () => {
@@ -29,7 +29,7 @@ function ChatFeed() {
   return (
     <div className="bg-gray-100 h-auto relative">
       <h2 className="text-sm text-center mb-4 bg-white p-2 sticky top-0">
-        Skriv ett meddelande {username} 💬
+        Users in the room: {usersInRooms[currentRoom]?.join(', ')} 💬
       </h2>
       <div className="space-y-2 overflow-y-auto">
         {filteredMessages.map((message, index) => (

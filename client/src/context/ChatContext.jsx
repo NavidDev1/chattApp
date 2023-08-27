@@ -17,7 +17,10 @@ const ChatProvider = ({ children }) => {
   const [currentRoom, setCurrentRoom] = useState("Lobby")
   const [messages, setMessages] = useState([]);
   const [typingUsers, setTypingUsers] = useState({});
-  console.log(typingUsers);
+  const [usersInRoom, setUsersInRoom] = useState([]);
+  const [usersInRooms, setUsersInRooms] = useState({});
+
+  // console.log(typingUsers);
 
 
   const connectToChat = () => {
@@ -65,6 +68,64 @@ const ChatProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    socket.emit("setUsername", username, (acknowledgmentData) => {
+      if (acknowledgmentData.success) {
+        console.log("Username set successfully.");
+      } else {
+        console.error("Failed to set username:", acknowledgmentData.error);
+      }
+    });
+  }, [username]);
+
+  useEffect(() => {
+    const handleUsersInRoom = (users) => {
+      setUsersInRoom(users);
+    };
+    socket.on("users_in_room", handleUsersInRoom);
+
+    return () => {
+      socket.off("users_in_room", handleUsersInRoom);
+    };
+  }, []);
+
+
+  // Connection handler
+  useEffect(() => {
+    const handleConnect = () => {
+      console.log("Socket connected");
+    };
+
+    socket.on("connect", handleConnect);
+
+    // Cleanup listener on unmount
+    return () => {
+      socket.off("connect", handleConnect);
+    };
+  }, []);
+
+  // Fetch users in rooms
+  useEffect(() => {
+    const fetchUsersInRooms = () => {
+      socket.emit("get_users_in_rooms", (roomsWithUsers) => {
+        console.log(roomsWithUsers);
+        setUsersInRooms(roomsWithUsers);
+      });
+    };
+
+    fetchUsersInRooms();
+
+    socket.on("room_changed", fetchUsersInRooms); // Assuming the server emits this event when rooms change. If not, adjust accordingly.
+
+    // Cleanup
+    return () => {
+      socket.off("room_changed", fetchUsersInRooms);
+    };
+  }, [currentRoom]); // Dependencies
+
+
+
+
 
   const joinRoom = (room) => {
     if (room !== currentRoom) {
@@ -84,7 +145,7 @@ const ChatProvider = ({ children }) => {
     })
   }, [])
 
-  console.log("Roomlist:", roomsList);
+  // console.log("Roomlist:", roomsList);
 
   // The value to provide through the context
   const chatContextValue = {
@@ -100,7 +161,8 @@ const ChatProvider = ({ children }) => {
     roomsList,
     setRoomsList,
     typingUsers,
-    socket
+    socket,
+    usersInRooms
   };
 
   return (<ChatContext.Provider value={chatContextValue}>

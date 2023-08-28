@@ -19,6 +19,7 @@ const rooms = new Set()
 rooms.add("Lobby")
 
 const roomMessages = {}
+const usersInRooms = {};
 
 console.log(rooms);
 console.log(roomMessages);
@@ -52,6 +53,10 @@ socket.on("typing_end", (data) => {
     console.log("Client disconnected:", socket.id);
   });
 
+  socket.on("set_username", (username) => {
+    socket.username = username;
+});
+
     socket.on("join_room", (room) => {
         socket.join(room)
         rooms.add(room)
@@ -60,8 +65,19 @@ socket.on("typing_end", (data) => {
             roomMessages[room] = []
         }
 
+        if (!usersInRooms[room]) {
+          usersInRooms[room] = [];
+      }
+
+      if (!usersInRooms[room].includes(socket.username)) {
+        usersInRooms[room].push(socket.username);
+    }
+
         console.log("User with id:", socket.id, "joined room:", room);
         io.emit("list_of_rooms", Array.from(rooms))
+        io.to(room).emit("update_users_in_room", room, usersInRooms[room]);
+        console.log("Users in Room: ", usersInRooms);
+        console.log(socket.username);
         console.log(io.sockets.adapter.rooms);
     })
 
@@ -72,17 +88,21 @@ socket.on("typing_end", (data) => {
     })
 
     socket.on("leave_room", (room) => {
-        socket.leave(room)
-        console.log("User with id:", socket.id, "left room:", room);
-
-        if (room !== "Lobby") {
-            const roomSize = io.sockets.adapter.rooms.get(room)?.size || 0;
-            if (roomSize === 0) {
-                rooms.delete(room);
-                io.emit("list_of_rooms", Array.from(rooms));
-                console.log("Room removed:", room);
-            }
+      console.log("User with id:", socket.id, "left room:", room);
+      if (usersInRooms[room]) {
+        usersInRooms[room] = usersInRooms[room].filter((user) => user !== socket.username);
+        io.to(room).emit("update_users_in_room", room, usersInRooms[room]);
+      }
+      socket.leave(room)
+      
+      if (room !== "Lobby") {
+        const roomSize = io.sockets.adapter.rooms.get(room)?.size || 0;
+        if (roomSize === 0) {
+          rooms.delete(room);
+          io.emit("list_of_rooms", Array.from(rooms));
+          console.log("Room removed:", room);
         }
+      }
     })
 });
 

@@ -17,17 +17,29 @@ const ChatProvider = ({ children }) => {
     const [currentRoom, setCurrentRoom] = useState("Lobby")
     const [messages, setMessages] = useState([]);
     const [typingUsers, setTypingUsers] = useState({});
+    const [usersInRooms, setUsersInRooms] = useState({});
     console.log(typingUsers);
+    console.log("Users in rooms", usersInRooms);
     
 
     const connectToChat = () => {
         if (username) {
+          socket.emit("set_username", username);
             socket.connect()
             joinRoom(currentRoom)
         } else {
             console.log("No username");
         }
     }
+
+    useEffect(() => {
+      socket.on("update_users_in_room", (room, updatedUsers) => {
+        setUsersInRooms((prevUsersInRooms) => ({
+          ...prevUsersInRooms,
+          [room]: updatedUsers,
+        }));
+      });
+    }, []);
 
     useEffect(() => {
       socket.on("message", (message) => {
@@ -72,6 +84,19 @@ const ChatProvider = ({ children }) => {
         socket.emit("join_room", room)
         setCurrentRoom(room)
     }
+
+    const leaveRoom = (room) => {
+      socket.emit("leave_room", room);
+  };
+  
+  // Leaving room on page refresh
+  useEffect(() => {
+      const handleUnload = (event) => {
+          leaveRoom(currentRoom);
+      };
+  
+      window.addEventListener("beforeunload", handleUnload);
+  }, []);
     
     const createRoom = (room) => {
         socket.emit("create_room", room)
@@ -99,7 +124,9 @@ const ChatProvider = ({ children }) => {
       roomsList,
       setRoomsList,
       typingUsers,
-      socket
+      socket,
+      usersInRooms,
+      leaveRoom
     };
 
     return (<ChatContext.Provider value={chatContextValue}>

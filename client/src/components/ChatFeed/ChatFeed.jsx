@@ -20,7 +20,7 @@ function ChatFeed() {
         behavior: "smooth",
       });
     }
-  }, [filteredMessages]);
+  }, [filteredMessages]);  
   console.log(username);
   return (
     <div className="bg-gray-100 h-auto relative">

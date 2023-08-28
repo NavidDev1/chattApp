@@ -19,9 +19,7 @@ function ChatFeed() {
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [filteredMessages]);
-
-
+  }, [filteredMessages]);  
   console.log(username);
   return (
     <div className="bg-gray-100 h-screen relative flex flex-col">
@@ -43,7 +41,11 @@ function ChatFeed() {
                 : "bg-blue-500 text-white"
                 }`}
             >
-              {message.content}
+              {message.content.startsWith('http') ? (
+                <img src={message.content} alt="GIF" />
+              ) : (
+                message.content
+              )}            
             </div>
             {username === message.username ? (
               <div className="text-gray-500 mb-1">

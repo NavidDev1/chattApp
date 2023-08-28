@@ -8,6 +8,22 @@ function MessageInput() {
     useChatContext();
   const uniqueTypingUsers = Array.from(new Set(typingUsers[currentRoom] || []));
 
+  const fetchGif = async (keyword) => {
+    try {
+      const response = await fetch("http://localhost:3000/gif", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ keyword }),
+      });
+      const data = await response.json();
+      sendMessage(data.gifUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleInputChange = (e) => {
     setNewMessage(e.target.value);
     if (e.target.value !== "") {
@@ -18,7 +34,16 @@ function MessageInput() {
   };
 
   const handleSendMessage = () => {
-    if (newMessage !== "") {
+    if (newMessage.startsWith("/gif")) {
+      const commandParts = newMessage.split(" ");
+    let keyword = "random";
+    if (commandParts.length >= 2) {
+      keyword = commandParts.slice(1).join(" ");
+    }
+    fetchGif(keyword);
+    setNewMessage("");
+    socket.emit("typing_end", { room: currentRoom, username });
+    } else if (newMessage !== "") {
       sendMessage(newMessage);
       setNewMessage("");
       socket.emit("typing_end", { room: currentRoom, username });
@@ -28,8 +53,7 @@ function MessageInput() {
   // a function that listens to an event and sends the message evrytime it is called wich is when the client presses enter.
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      sendMessage(newMessage)
-      setNewMessage("")
+      handleSendMessage();
       socket.emit("typing_end", { room: currentRoom, username })
     }
   };
@@ -60,7 +84,6 @@ function MessageInput() {
           {" "}
           Send{" "}
         </button>
-
         {/* <SendMessageBtn /> */}
       </div>
     </div>

@@ -2,6 +2,7 @@ const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
+const axios = require("axios")
 
 const app = express();
 const server = http.createServer(app);
@@ -12,6 +13,21 @@ const io = new Server(server, {
 });
 
 app.use(cors())
+app.use(express.json())
+
+const GIPHY_API_KEY = 'RMExITKVJMmomv1Ug2YI9YGyUXqhrJ6c';
+
+app.post('/gif', async (req, res) => {
+  try {
+    const keyword = req.body.keyword || "random";
+    const response = await axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${GIPHY_API_KEY}&tag=${keyword}&rating=g`);
+    const gifUrl = response.data.data.images.fixed_height.url;
+    res.json({ gifUrl });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
 
 // Set med alla rooms
 const rooms = new Set()

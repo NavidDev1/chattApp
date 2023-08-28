@@ -45,7 +45,11 @@ function ChatFeed() {
                   : "bg-blue-500 text-white"
               }`}
             >
-              {message.content}
+              {message.content.startsWith('http') ? (
+                <img src={message.content} alt="GIF" />
+              ) : (
+                message.content
+              )}            
             </div>
             {username === message.username ? (
               <div className="text-gray-500 mb-1">

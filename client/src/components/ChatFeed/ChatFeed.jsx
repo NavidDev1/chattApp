@@ -3,15 +3,15 @@ import { useChatContext } from "../../context/ChatContext";
 import MessageInput from "../MessageInput/MessageInput";
 
 function ChatFeed() {
-  const { messages, username, currentRoom, setRoomsList, usersInRooms } = useChatContext();
+  const { messages, username, currentRoom, setRoomsList, usersInRooms } =
+    useChatContext();
 
   const filteredMessages = messages.filter(
     (message) => message.room === currentRoom
   );
 
-
   const lastMessageContainerRef = useRef(null);
-  const lobbyUsers = usersInRooms['Lobby'];
+  const lobbyUsers = usersInRooms["Lobby"];
   //here we make a custom hook to make the dic automatically scroll to bottom of the chatfeed
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function ChatFeed() {
   return (
     <div className="bg-gray-100 h-auto relative">
       <h2 className="text-sm text-center mb-4 bg-white p-2 sticky top-0">
-        Users in the room: {usersInRooms[currentRoom]?.join(', ')} 💬
+        Users in the room: {usersInRooms[currentRoom]?.join(", ")} 💬
       </h2>
       <div className="space-y-2 overflow-y-auto" ref={lastMessageContainerRef}>
         {filteredMessages.map((message, index) => (
@@ -35,7 +35,9 @@ function ChatFeed() {
               username === message.username ? "items-end" : "items-start"
             }`}
             ref={
-              index === filteredMessages.length - 1 ? lastMessageContainerRef : null
+              index === filteredMessages.length - 1
+                ? lastMessageContainerRef
+                : null
             }
           >
             <div
@@ -49,7 +51,7 @@ function ChatFeed() {
             </div>
             {username === message.username ? (
               <div className="text-gray-500 mb-1">
-                {message.username}(
+                (
                 {new Date(message.timestamp).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",

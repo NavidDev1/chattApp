@@ -26,7 +26,7 @@ function ChatFeed() {
   return (
     <div className="bg-gray-100 h-screen relative flex flex-col">
       <h2 className="text-sm text-center mb-4 bg-white p-2 sticky top-0">
-        Users in the room: {usersInRooms[currentRoom]?.join(", ")} 💬
+        Users in {currentRoom}: {usersInRooms[currentRoom]?.join(", ")} 💬
       </h2>
       <div className="space-y-2 overflow-y-auto flex-1" ref={messagesContainerRef}>
         {filteredMessages.map((message, index) => (

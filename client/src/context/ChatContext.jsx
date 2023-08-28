@@ -129,9 +129,9 @@ const ChatProvider = ({ children }) => {
       leaveRoom
     };
 
-    return (<ChatContext.Provider value={chatContextValue}>
-        {children}
-    </ChatContext.Provider>)
+  return (<ChatContext.Provider value={chatContextValue}>
+    {children}
+  </ChatContext.Provider>)
 }
 
 export default ChatProvider

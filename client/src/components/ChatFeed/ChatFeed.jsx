@@ -19,7 +19,15 @@ function ChatFeed() {
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [filteredMessages]);  
+  
+    // Timeout for scrolling gifs
+    setTimeout(() => {
+      if (lastMessageRef.current) {
+        lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 200);
+  
+  }, [filteredMessages]);
   console.log(username);
   return (
     <div className="bg-gray-100 relative flex flex-col h-full">

@@ -22,7 +22,7 @@ function ChatFeed() {
   }, [filteredMessages]);  
   console.log(username);
   return (
-    <div className="bg-gray-100 h-screen relative flex flex-col">
+    <div className="bg-gray-100 relative flex flex-col h-full">
       <h2 className="text-sm text-center mb-4 bg-white p-2 sticky top-0">
         Users in {currentRoom}: {usersInRooms[currentRoom]?.join(", ")} 💬
       </h2>
@@ -36,7 +36,7 @@ function ChatFeed() {
 
           >
             <div
-              className={`p-3 rounded-md shadow-md ${username === message.username
+              className={`p-3 rounded-md shadow-md max-w-xs whitespace-normal break-words ${username === message.username
                 ? "bg-black text-white"
                 : "bg-blue-500 text-white"
                 }`}

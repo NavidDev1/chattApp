@@ -32,14 +32,14 @@ const StartPage = () => {
       <div>
         <p className="text-center mb-2">Choose a name</p>
         <input 
-          className="bg-gray-200 w-full p-2 text-center text-lg" 
+          className="bg-gray-200 w-full p-2 text-center text-lg outline-none" 
           type="text"
           placeholder="Name" 
           onChange={handleUsernameInput} />
          {message && <span className="bg-red-500 p-1 text-sm inline-block mt-2 w-full text-center text-white">{message}</span>}
       </div>
       {<button onClick={handleClick} className="bg-blue-400 text-white
-     py-2 px-4 font-bold">Connect</button>}
+     py-2 px-4 font-bold hover:animate-pulse">Connect</button>}
     </div>
     </div>
   )

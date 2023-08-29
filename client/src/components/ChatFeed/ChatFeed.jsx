@@ -32,7 +32,7 @@ function ChatFeed() {
   return (
     <div className="bg-gray-100 relative flex flex-col h-full">
       <h2 className="text-sm text-center mb-4 bg-white p-2 sticky top-0">
-        Users in {currentRoom}: {usersInRooms[currentRoom]?.join(", ")} 💬
+        Users in {currentRoom}: <b className="text-indigo-500">{usersInRooms[currentRoom]?.join(", ")}</b> 💬
       </h2>
       <div className="space-y-2 overflow-y-auto flex-1" ref={messagesContainerRef}>
         {filteredMessages.map((message, index) => (
@@ -44,9 +44,9 @@ function ChatFeed() {
 
           >
             <div
-              className={`p-3 rounded-md shadow-md max-w-xs whitespace-normal break-words ${username === message.username
-                ? "bg-black text-white"
-                : "bg-blue-500 text-white"
+              className={`p-3 mx-1 rounded-md shadow-md max-w-xs whitespace-normal break-words ${username === message.username
+                ? "bg-gray-600 text-white"
+                : "bg-indigo-500 text-white"
                 }`}
             >
               {message.content.startsWith('http') ? (
@@ -56,7 +56,7 @@ function ChatFeed() {
               )}            
             </div>
             {username === message.username ? (
-              <div className="text-gray-500 mb-1 text-xs">
+              <div className="text-gray-400 mb-1 text-xs">
                 (
                 {new Date(message.timestamp).toLocaleTimeString([], {
                   hour: "2-digit",
@@ -65,7 +65,7 @@ function ChatFeed() {
                 )
               </div>
             ) : (
-              <div className="text-gray-500 mb-1 text-xs">
+              <div className="text-gray-400 mb-1 text-xs">
                 {" "}
                 {message.username + " "}(
                 {new Date(message.timestamp).toLocaleTimeString([], {

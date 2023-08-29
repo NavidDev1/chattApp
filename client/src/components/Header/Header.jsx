@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom"
 import { useState } from "react"
-import "./Header.css"
 import { useChatContext } from "../../context/ChatContext"
 import CreateRoomPopup from "../CreateRoomPopup/CreateRoomPopup"
 import { FiUser, FiMessageSquare } from "react-icons/fi"
@@ -18,12 +16,12 @@ function Header() {
   }
 
     return (
-      <div className="header">
+      <div className="flex items-center bg-indigo-500 text-white p-4 justify-between w-full">
         <h1>Chatt</h1>
         {isPopupOpen && <CreateRoomPopup onClose={handleClosePopup}/>}
         <div className="text-sm flex gap-2">
-        <Link className="flex items-center gap-1" to="#" onClick={handleOpenPopup}><FiMessageSquare /> Create Room</Link>
-        <Link className="flex items-center gap-1" to="#"><FiUser /> {username}</Link>
+        <button className="flex items-center gap-1" onClick={handleOpenPopup}><FiMessageSquare />Create Room</button>
+        <button className="flex items-center gap-1 cursor-default"><FiUser />{username}</button>
         </div>
       </div>
     )

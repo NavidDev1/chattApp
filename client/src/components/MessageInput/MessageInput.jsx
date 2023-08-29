@@ -61,7 +61,7 @@ function MessageInput() {
     <div className="flex flex-col border-2 border-t-0 border-solid sticky bottom-0 right-0 left-0 z-100 mt-2">
       <div>
         {uniqueTypingUsers.length > 0 && (
-          <div className="text-gray-400 text-xs animate-pulse animate-infinite">
+          <div className="text-gray-400 pl-1 text-xs animate-pulse animate-infinite">
             {uniqueTypingUsers.join(", ")}{" "}
             {uniqueTypingUsers.length === 1 ? "is" : "are"} typing...
           </div>
@@ -69,7 +69,7 @@ function MessageInput() {
       </div>
       <div className="flex justify-end">
         <input
-          className="p-2 text-sm flex-1"
+          className="p-2 text-sm flex-1 outline-none"
           type="text"
           value={newMessage}
           onChange={handleInputChange}
@@ -78,7 +78,7 @@ function MessageInput() {
 
         <button
           onClick={handleSendMessage}
-          className="bg-blue-400 text-white p-2 text-sm "
+          className="bg-indigo-500 text-white p-2 text-sm hover:animate-pulse"
         >
           {" "}
           Send{" "}

@@ -21,9 +21,9 @@ function Sidebar() {
       <Link
         to="/"
         onClick={() => leaveRoom(currentRoom)}
-        className="bg-red-500 text-white text-sm text-center absolute bottom-0 left-0 right-0 p-2 hover:animate-pulse"
+        className="bg-red-500 text-white text-sm text-center absolute bottom-0 left-0 right-0 p-2 hover:animate-pulse border-2 border-t-0"
       >
-        Logga ut
+        Log out
       </Link>
     </div>
   );

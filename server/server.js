@@ -108,6 +108,10 @@ socket.on("typing_end", (data) => {
       if (usersInRooms[room]) {
         usersInRooms[room] = usersInRooms[room].filter((user) => user !== socket.username);
         io.to(room).emit("update_users_in_room", room, usersInRooms[room]);
+
+        if (usersInRooms[room].length === 0) {
+          delete usersInRooms[room];
+        }
       }
       socket.leave(room)
       

@@ -16,7 +16,7 @@ function CreateRoomPopup({ onClose }) {
   console.log(newRoom);
   return (
     <div className="flex flex-col items-center justify-center fixed inset-0 z-50">
-      <div className="bg-indigo-500 rounded-lg p-4 ml-36">
+      <div className="bg-indigo-500 rounded-s p-4 ml-36 animate-jump-in">
         <h1 className="text-center mb-2">Create Room</h1>
         <input
           type="text"

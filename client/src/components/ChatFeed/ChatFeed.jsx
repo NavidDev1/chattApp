@@ -3,7 +3,7 @@ import { useChatContext } from "../../context/ChatContext";
 import MessageInput from "../MessageInput/MessageInput";
 
 function ChatFeed() {
-  const { messages, username, currentRoom, setRoomsList, usersInRooms } =
+  const { messages, username, currentRoom, usersInRooms } =
     useChatContext();
 
   const filteredMessages = messages.filter(
@@ -12,7 +12,6 @@ function ChatFeed() {
 
   const messagesContainerRef = useRef(null);
   const lastMessageRef = useRef(null);
-  const lobbyUsers = usersInRooms["Lobby"];
   //here we make a custom hook to make the dic automatically scroll to bottom of the chatfeed
 
   useEffect(() => {

@@ -30,7 +30,7 @@ function ChatFeed() {
         {filteredMessages.map((message, index) => (
           <div
             key={index}
-            className={`flex flex-col text-s space-x-2 space-y-2 ${username === message.username ? "items-end" : "items-start"
+            className={`flex flex-col text-s space-x-2 space-y-2 animate-fade-down ${username === message.username ? "items-end" : "items-start"
               }`}
             ref={index === filteredMessages.length - 1 ? lastMessageRef : null}
 
@@ -48,7 +48,7 @@ function ChatFeed() {
               )}            
             </div>
             {username === message.username ? (
-              <div className="text-gray-500 mb-1">
+              <div className="text-gray-500 mb-1 text-xs">
                 (
                 {new Date(message.timestamp).toLocaleTimeString([], {
                   hour: "2-digit",
@@ -57,9 +57,9 @@ function ChatFeed() {
                 )
               </div>
             ) : (
-              <div className="text-gray-500 mb-1">
+              <div className="text-gray-500 mb-1 text-xs">
                 {" "}
-                {message.username}(
+                {message.username + " "}(
                 {new Date(message.timestamp).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",

@@ -1,4 +1,3 @@
-import SendMessageBtn from "../SendMessageBtn/SendMessageBtn";
 import { useChatContext } from "../../context/ChatContext";
 import { useState } from "react";
 
@@ -59,10 +58,10 @@ function MessageInput() {
   };
 
   return (
-    <div className="flex flex-col border-2 border-solid sticky bottom-0 right-0 left-0 z-100 mt-2">
+    <div className="flex flex-col border-2 border-t-0 border-solid sticky bottom-0 right-0 left-0 z-100 mt-2">
       <div>
         {uniqueTypingUsers.length > 0 && (
-          <div className="text-gray-400 text-sm">
+          <div className="text-gray-400 text-xs animate-pulse animate-infinite">
             {uniqueTypingUsers.join(", ")}{" "}
             {uniqueTypingUsers.length === 1 ? "is" : "are"} typing...
           </div>
@@ -84,7 +83,6 @@ function MessageInput() {
           {" "}
           Send{" "}
         </button>
-        {/* <SendMessageBtn /> */}
       </div>
     </div>
   );

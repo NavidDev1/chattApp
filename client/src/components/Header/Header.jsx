@@ -25,12 +25,6 @@ function Header() {
         <Link className="flex items-center gap-1" to="#" onClick={handleOpenPopup}><FiMessageSquare /> Create Room</Link>
         <Link className="flex items-center gap-1" to="#"><FiUser /> {username}</Link>
         </div>
-        {/* <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/lobby">Lobby</Link></li>
-          <li><Link to="/create_room">Create Room</Link></li>
-          <li><Link to="/all_rooms">All Rooms</Link></li>
-        </ul> */}
       </div>
     )
   }

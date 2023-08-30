@@ -1,17 +1,19 @@
-import { useState } from "react"
-import { useChatContext } from "../../context/ChatContext"
+import { useState } from "react";
+import { useChatContext } from "../../context/ChatContext";
+
+// creating the room pup up
 
 function CreateRoomPopup({ onClose }) {
-  const [newRoom, setNewRoom] = useState("")
-  const { createRoom, joinRoom } = useChatContext()
+  const [newRoom, setNewRoom] = useState("");
+  const { createRoom, joinRoom } = useChatContext();
 
   const handleCreateRoom = () => {
     if (newRoom.trim() !== "") {
-      createRoom(newRoom)
-      joinRoom(newRoom)
-      onClose()
+      createRoom(newRoom);
+      joinRoom(newRoom);
+      onClose();
     }
-  }
+  };
 
   console.log(newRoom);
   return (
@@ -25,22 +27,22 @@ function CreateRoomPopup({ onClose }) {
           className="text-black p-1 border border-gray-300 mb-2 w-60 outline-none"
         />
         <div className="flex justify-center gap-2">
-        <button
-          onClick={handleCreateRoom}
-          className="text-sm text-white px-4 py-1 hover:animate-pulse"
-        >
-          Create
-        </button>
-        <button
-          onClick={onClose}
-          className="text-sm text-white px-4 py-1 hover:animate-pulse"
-        >
-          Close
-        </button>
+          <button
+            onClick={handleCreateRoom}
+            className="text-sm text-white px-4 py-1 hover:animate-pulse"
+          >
+            Create
+          </button>
+          <button
+            onClick={onClose}
+            className="text-sm text-white px-4 py-1 hover:animate-pulse"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
-  )
-  }
-  
-  export default CreateRoomPopup
+  );
+}
+
+export default CreateRoomPopup;

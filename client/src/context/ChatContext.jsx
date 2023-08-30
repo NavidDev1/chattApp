@@ -27,7 +27,7 @@ const ChatProvider = ({ children }) => {
       console.log("No username");
     }
   };
-
+  // function for updating user in the room.
   useEffect(() => {
     socket.on("update_users_in_room", (room, updatedUsers) => {
       setUsersInRooms((prevUsersInRooms) => ({
@@ -37,13 +37,14 @@ const ChatProvider = ({ children }) => {
     });
   }, []);
 
+  // Listen for "message" events from the socket and update the messages state
   useEffect(() => {
     socket.on("message", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
-    // Listen for "message" events from the socket and update the messages state
   }, []);
 
+  //  for showing if the user is typing a message, or have stopped typing
   useEffect(() => {
     socket.on("user_typing", (data) => {
       setTypingUsers((prevTypingUsers) => ({
@@ -128,6 +129,7 @@ const ChatProvider = ({ children }) => {
   };
 
   return (
+    // Here we are wrapping the childrens with the context provider.
     <ChatContext.Provider value={chatContextValue}>
       {children}
     </ChatContext.Provider>

@@ -1,4 +1,3 @@
-import './App.css'
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom"
 import StartPage from "./pages/StartPage"
 import Main from './components/Main/Main'

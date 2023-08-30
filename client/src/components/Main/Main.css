@@ -1,47 +1,37 @@
 .main {
-    width: 80%;
-    max-width: 600px;
-
-
+  width: 80%;
+  max-width: 600px;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* This centers the content div horizontally */
-    width: 80%;
-    /* Width of the container */
-    max-width: 600px;
-    /* You can adjust this value based on your preference */
-    margin: 0 auto;
-    /* This centers the container in the middle of the page */
-    height: 70vh;
-    /* This sets the container height to 70% of the viewport height */
-    overflow: auto;
-    /* This will allow the content inside the container to scroll if it exceeds the container's height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  height: 70vh;
+  overflow: auto;
 }
 
 .content {
-    width: 100%;
-    max-width: 600px;
-    height: calc(100% - 60px);
-    /* Assuming header and "Main" title takes up 60px. Adjust as needed. */
-    overflow: hidden;
-    /* This ensures that the content doesn't overflow outside of its container */
+  width: 100%;
+  max-width: 600px;
+  height: calc(100% - 60px);
+  overflow: hidden;
 }
 
 .sidebar {
-    width: 25%;
-    /* Sidebar takes up 1/4th of the content width */
-    max-width: 150px;
-    height: 50vh;
-    background-color: #f1f1f1;
-    border: none;
+  width: 25%;
+  max-width: 150px;
+  height: 50vh;
+  background-color: #f1f1f1;
+  border: none;
 }
 
 .chatfeed {
-    width: 75%;
-    height: 50vh;
+  width: 75%;
+  height: 50vh;
 }

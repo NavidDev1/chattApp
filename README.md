@@ -29,6 +29,8 @@ Efter det startar du React:
 Nu kan du öppna chatt applikationen på
 **localhost:5173**
 
+(Om funktionaliteten GIFs har slutat fungera, registrera dig på denna sida "https://developers.giphy.com/" och skapa sin egen API-nyckel som du sedan klistrar in i .env-filen i servermappen)
+
 
 
 ***English

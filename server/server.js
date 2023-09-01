@@ -3,6 +3,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 const axios = require("axios")
+require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
@@ -15,7 +16,7 @@ const io = new Server(server, {
 app.use(cors())
 app.use(express.json())
 
-const GIPHY_API_KEY = 'RMExITKVJMmomv1Ug2YI9YGyUXqhrJ6c';
+const GIPHY_API_KEY = process.env.GIPHY_API_KEY;
 
 app.post('/gif', async (req, res) => {
   try {

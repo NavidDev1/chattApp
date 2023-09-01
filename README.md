@@ -29,7 +29,9 @@ Efter det startar du React:
 Nu kan du öppna chatt applikationen på
 **localhost:5173**
 
-\*\*\*English
+(Om funktionaliteten GIFs har slutat fungera, registrera dig på denna sida "https://developers.giphy.com/" och skapa sin egen API-nyckel som du sedan klistrar in i .env-filen i servermappen)
+
+***English
 
 This project is a chat application built with Node.js/Express backend and React.js frontend, utilizing Socket.io for peer-to-peer (P2P) communication.
 

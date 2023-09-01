@@ -5,7 +5,7 @@ import './Main.css'
 
 function Main() {
   return (
-    <div className="main min-h-screen flex flex-col justify-center w-94 mx-auto scale-100 md:scale-125">
+    <div className="main min-h-screen flex flex-col justify-center w-94 mx-auto">
       <div className="container bg-white rounded shadow-lg h-3/5">
         <Header />
         <div className="content flex justify-between gap-2">

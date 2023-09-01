@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { useChatContext } from "../../context/ChatContext";
 import MessageInput from "../MessageInput/MessageInput";
 
+//ChatFeed components that renders the messages
+
 function ChatFeed() {
-  const { messages, username, currentRoom, usersInRooms } =
-    useChatContext();
+  const { messages, username, currentRoom, usersInRooms } = useChatContext();
 
   const filteredMessages = messages.filter(
     (message) => message.room === currentRoom
@@ -18,41 +19,51 @@ function ChatFeed() {
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  
+
     // Timeout for scrolling gifs
     setTimeout(() => {
       if (lastMessageRef.current) {
         lastMessageRef.current.scrollIntoView({ behavior: "smooth" });
       }
     }, 200);
-  
   }, [filteredMessages]);
   console.log(username);
   return (
+    /* here we are maping thru the messages, with conditionals that depending on who is sending and reciving the messages alters UI. 
+    we also use a cutom hook to check for the last message sent so that the auto-scroll functionality is working properly*/
+
     <div className="bg-gray-100 relative flex flex-col h-full">
       <h2 className="text-sm text-center mb-4 bg-white p-2 sticky top-0">
-        Users in {currentRoom}: <b className="text-indigo-500">{usersInRooms[currentRoom]?.join(", ")}</b> 💬
+        Users in {currentRoom}:{" "}
+        <b className="text-indigo-500">
+          {usersInRooms[currentRoom]?.join(", ")}
+        </b>{" "}
+        💬
       </h2>
-      <div className="space-y-2 overflow-y-auto flex-1" ref={messagesContainerRef}>
+      <div
+        className="space-y-2 overflow-y-auto flex-1"
+        ref={messagesContainerRef}
+      >
         {filteredMessages.map((message, index) => (
           <div
             key={index}
-            className={`flex flex-col text-s space-x-2 space-y-2 animate-fade-down ${username === message.username ? "items-end" : "items-start"
-              }`}
+            className={`flex flex-col text-s space-x-2 space-y-2 animate-fade-down ${
+              username === message.username ? "items-end" : "items-start"
+            }`}
             ref={index === filteredMessages.length - 1 ? lastMessageRef : null}
-
           >
             <div
-              className={`p-3 mx-1 rounded-md shadow-md max-w-xs whitespace-normal break-words ${username === message.username
-                ? "bg-gray-600 text-white"
-                : "bg-indigo-500 text-white"
-                }`}
+              className={`p-3 mx-1 rounded-md shadow-md max-w-xs whitespace-normal break-words ${
+                username === message.username
+                  ? "bg-gray-600 text-white"
+                  : "bg-indigo-500 text-white"
+              }`}
             >
-              {message.content.startsWith('http') ? (
+              {message.content.startsWith("http") ? (
                 <img src={message.content} alt="GIF" />
               ) : (
                 message.content
-              )}            
+              )}
             </div>
             {username === message.username ? (
               <div className="text-gray-400 mb-1 text-xs">

@@ -31,8 +31,6 @@ Nu kan du öppna chatt applikationen på
 
 (Om funktionaliteten GIFs har slutat fungera, registrera dig på denna sida "https://developers.giphy.com/" och skapa sin egen API-nyckel som du sedan klistrar in i .env-filen i servermappen)
 
-
-
 ***English
 
 This project is a chat application built with Node.js/Express backend and React.js frontend, utilizing Socket.io for peer-to-peer (P2P) communication.
@@ -50,17 +48,15 @@ Axios
 Tailwind CSS
 To start the server:
 
-Navigate to ./server in the terminal.
-Install all packages with npm install.
-Run the server with npm start.
+1. Navigate to ./server in the terminal.
+2. Install all packages with npm install.
+3. Run the server with npm start.
+
 Afterward, start React:
 
-Navigate to ./client in the terminal.
-Install all packages with npm install.
-Run the project with npm run dev.
-You can now open the chat application at localhost:5173.
+1. Navigate to ./client in the terminal.
+2. Install all packages with npm install.
+3. Run the project with npm run dev.
 
-
-
-
-
+You can now open the chat application at
+**localhost:5173**

@@ -7,6 +7,7 @@ function MessageInput() {
     useChatContext();
   const uniqueTypingUsers = Array.from(new Set(typingUsers[currentRoom] || []));
 
+  // sends a request to the server to fetch a gif
   const fetchGif = async (keyword) => {
     try {
       const response = await fetch("http://localhost:3000/gif", {
@@ -23,6 +24,7 @@ function MessageInput() {
     }
   };
 
+  // checking if someone is typing
   const handleInputChange = (e) => {
     setNewMessage(e.target.value);
     if (e.target.value !== "") {
@@ -32,16 +34,17 @@ function MessageInput() {
     }
   };
 
+  //this function will check if the message start with /gif and fetch a GIF, else send regular messafe.
   const handleSendMessage = () => {
     if (newMessage.startsWith("/gif")) {
       const commandParts = newMessage.split(" ");
-    let keyword = "random";
-    if (commandParts.length >= 2) {
-      keyword = commandParts.slice(1).join(" ");
-    }
-    fetchGif(keyword);
-    setNewMessage("");
-    socket.emit("typing_end", { room: currentRoom, username });
+      let keyword = "random";
+      if (commandParts.length >= 2) {
+        keyword = commandParts.slice(1).join(" ");
+      }
+      fetchGif(keyword);
+      setNewMessage("");
+      socket.emit("typing_end", { room: currentRoom, username });
     } else if (newMessage !== "") {
       sendMessage(newMessage);
       setNewMessage("");
@@ -53,7 +56,7 @@ function MessageInput() {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSendMessage();
-      socket.emit("typing_end", { room: currentRoom, username })
+      socket.emit("typing_end", { room: currentRoom, username });
     }
   };
 
